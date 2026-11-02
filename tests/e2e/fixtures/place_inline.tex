@@ -1,0 +1,31 @@
+% kacho E2E fixture (Feature 32): inline spray inside a figure with a
+% caption, between paragraphs. Hooks (defined by the harness):
+%   \KachoSetupArgs   -> \kachosetup{...}
+%   \KachoSprayCmd    -> the inline spray placed in the figure
+%   \KachoSprayCmdB   -> optional second spray in the running text
+\documentclass[11pt]{article}
+\usepackage{geometry}
+\usepackage{lipsum}
+\usepackage{kacho}
+\ifdefined\KachoSetupArgs
+  \expandafter\kachosetup\expandafter{\KachoSetupArgs}
+\fi
+\providecommand\KachoSprayCmd{\kachospray[width=0.6\linewidth,height=45mm,seed=7]}
+\providecommand\KachoSprayCmdB{}
+\begin{document}
+\section{An Inline Spray}
+\lipsum[1]
+\begin{figure}[!htbp]
+  \centering
+  \KachoSprayCmd
+  \caption{The basket and the tile, left to the margin.}
+  \label{fig:spray}
+\end{figure}
+\lipsum[2]
+
+\begin{center}
+\KachoSprayCmdB
+\end{center}
+Figure~\ref{fig:spray} shows a spray placed by the author.
+\lipsum[3]
+\end{document}

@@ -1,0 +1,19 @@
+% kacho E2E Tier-4 fixture: two-column conference paper in letter paper.
+\documentclass[10pt,twocolumn,letterpaper]{article}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{amsmath}
+\usepackage{lipsum}
+\usepackage[layout=scattered-petals]{kacho}
+\title{Seeded Randomness in Decorative Typesetting}
+\author{C.~Researcher}
+\begin{document}
+\maketitle
+\begin{abstract}\lipsum[1][1-5]\end{abstract}
+\section{Introduction}\lipsum[2-4]
+\section{Method}
+\begin{equation} x_{n+1} = (a x_n + c) \bmod m \end{equation}
+\lipsum[5-8]
+\begin{figure*}[t]\centering\rule{0.9\textwidth}{3cm}
+\caption{Wide placeholder figure spanning both columns.}\end{figure*}
+\section{Evaluation}\lipsum[9-14]
+\end{document}

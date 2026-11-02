@@ -1,0 +1,20 @@
+% kacho E2E Tier-4 fixture: a small poetry collection (verse environments,
+% centred titles, one poem per page).
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage[theme=fuyu,palette=sumi]{kacho}
+\pagestyle{plain}
+\newcommand\poem[2]{\begin{center}\large\itshape #1\end{center}
+  \begin{verse}#2\end{verse}\clearpage}
+\begin{document}
+\poem{Winter Plum}{A single blossom\\ on the black and crooked bough\\
+  snow has not yet left.\\[1ex] The old wall is cold;\\ the scent arrives
+  before light\\ and stays after dusk.}
+\poem{Bamboo in Wind}{Hollow, upright stems\\ bow low and rise again\\
+  rustling like the sea.\\[1ex] Nothing in the grove\\ resists the wind for
+  long, yet\\ nothing is broken.}
+\poem{Pine on the Cliff}{Rooted in the rock\\ the pine leans over the
+  waves\\ one green hand open.}
+\poem{Narcissus}{White petals, gold cup,\\ a bowl of pebbles and
+  water\\ on the New Year shelf.}
+\end{document}

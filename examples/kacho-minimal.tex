@@ -1,0 +1,41 @@
+% Copyright 2026 Allen Jue
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%     http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+%
+% kacho-minimal.tex -- smallest working example of the kacho engine (M1 demo layout).
+% Build: make            (or: TEXINPUTS=$PWD/tex//: LUAINPUTS=$PWD/tex//: lualatex -output-directory=build examples/kacho-minimal.tex)
+% It exercises two-sided mirroring (odd/even pages), a per-page override,
+% \kachoOff/\kachoOn and a partial last page.
+\documentclass[11pt,twoside]{article}
+\usepackage[a5paper,inner=15mm,outer=38mm,top=22mm,bottom=26mm]{geometry}
+\usepackage{lipsum}
+\usepackage[seed=7, palette=sumi, layout=demo, ground=washi]{kacho}
+\title{kacho: minimal example}
+\author{procedural kach\=o-e margins for Lua\LaTeX}
+\date{}
+\begin{document}
+\maketitle
+\section*{A branch and a wash}
+\lipsum[1-3]
+
+\kachoThisPage{seed=11, palette=hanga}% different composition and palette on the page containing this marker
+\lipsum[4-6]
+\clearpage
+\kachoOff
+\section*{An undecorated page}
+This page is intentionally plain (\verb|\kachoOff|).
+\clearpage
+\kachoOn
+\section*{Decoration resumes}
+\lipsum[7-8]
+\end{document}

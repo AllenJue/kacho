@@ -1,0 +1,43 @@
+% Copyright 2026 Allen Jue
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%     http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+%
+% kacho-motifs.tex -- motif gallery of the kacho package (M2): every motif of
+% kacho-flora, kacho-fauna, kacho-scenery and kacho-seal on its own page, drawn
+% in the sumi palette (left) and the hanga palette (right).
+% Build: make   (or: TEXINPUTS=$PWD/tex//: LUAINPUTS=$PWD/tex//: lualatex -output-directory=build examples/kacho-motifs.tex)
+\documentclass[11pt]{article}
+\usepackage[a4paper,left=18mm,right=18mm,top=14mm,textheight=16mm,nohead,nofoot]{geometry}
+\usepackage[seed=5, layout=none, ground=washi]{kacho}
+\directlua{require("kacho-motifsheet").install(kacho)}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\newcommand\motifpage[2]{%
+  \kachoThisPage{layout=motif-#1}%
+  {\large\textbf{#2}}\par
+  {\small left: \textit{sumi} palette \quad right: \textit{hanga} palette}%
+  \clearpage}
+\begin{document}
+\motifpage{ume}{Ume -- plum blossom}
+\motifpage{sakura}{Sakura -- cherry blossom}
+\motifpage{bamboo}{Take -- bamboo in mist and mineral wash}
+\motifpage{orchid}{Ran -- orchid}
+\motifpage{maple}{Momiji -- maple}
+\motifpage{wisteria}{Fuji -- wisteria}
+\motifpage{iris}{Kakitsubata -- iris}
+\motifpage{bonus1}{Kinmokusei and tsubaki -- osmanthus (left), camellia (right)}
+\motifpage{bonus2}{Suisen, kiku and matsu -- narcissus and chrysanthemum (left), pine (right)}
+\motifpage{birds}{Birds -- robin, uguisu, sparrow on plum; mejiro on maple; swallows}
+\motifpage{seal}{Hanko -- procedural seals (hakubun / shubun)}
+\motifpage{scenery}{Scenery -- bokashi sky, Mt Fuji, kasumi, waves, cliffs, rock, tanzaku}
+\end{document}

@@ -1,0 +1,14 @@
+% kacho E2E fixture: long document (>= 50 pages).
+\documentclass[11pt]{article}
+\usepackage{geometry}
+\usepackage{lipsum}
+\usepackage{kacho}
+\newcount\kachotestcount
+\begin{document}
+\kachotestcount=0
+\loop
+  \advance\kachotestcount by 1
+  \section{Section \the\kachotestcount}
+  \lipsum[1-15]
+\ifnum\kachotestcount<20 \repeat
+\end{document}

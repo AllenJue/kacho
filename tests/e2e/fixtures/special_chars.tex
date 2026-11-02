@@ -1,0 +1,14 @@
+% kacho E2E fixture: text with TeX special characters, accents and long
+% unbreakable tokens near the margins.
+\documentclass[11pt]{article}
+\usepackage{geometry}
+\usepackage{kacho}
+\begin{document}
+\section*{Special \& Unusual: 100\% \$5 \#1 \_x \{y\}}
+Kach\=o-e \& ranp\=o — na\"ive caf\'e d\'ej\`a vu, \AA ngstr\"om, \ss, \o.
+\texttt{\textbackslash usepackage[seed=7]\{kacho\}} and
+supercalifragilisticexpialidocious-pneumonoultramicroscopicsilicovolcanoconiosis
+Lines near the right margin: \hfill flush-right text\par
+\noindent flush-left text at the very start of the line.\par
+\hfill\rule{\linewidth}{0.4pt}\par
+\end{document}

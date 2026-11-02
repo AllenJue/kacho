@@ -1,0 +1,13 @@
+% kacho E2E fixture: a shikishi chapter-opener page then body text.
+\documentclass[11pt]{article}
+\usepackage{geometry}
+\usepackage{lipsum}
+\usepackage{kacho}
+\providecommand\KachoOpenerCmd{\kachoThisPage{layout=shikishi}}
+\begin{document}
+\KachoOpenerCmd
+\section*{Chapter One: The Pine}
+\lipsum[1]
+\clearpage
+\lipsum[2-5]
+\end{document}

@@ -1,0 +1,20 @@
+% kacho E2E tier-4 fixture (Feature 32): an A5 landscape event poster with
+% no automatic layout and four user spawn points in the corners. Hooks:
+% \KachoPosterSetup, \KachoPosterSpawns (from api_config.py).
+\documentclass[12pt]{article}
+\usepackage[a5paper,landscape,margin=30mm]{geometry}
+\usepackage{kacho}
+\providecommand\KachoPosterSetup{}
+\KachoPosterSetup
+\providecommand\KachoPosterSpawns{}
+\pagestyle{empty}
+\begin{document}
+\KachoPosterSpawns
+\begin{center}
+{\LARGE Plum Viewing Evening}\par\bigskip
+Saturday, the twentieth of February\par
+In the old garden behind the library\par\bigskip
+Tea, sweets and haiku readings from six o'clock.\par
+All are welcome; bring a warm coat.
+\end{center}
+\end{document}

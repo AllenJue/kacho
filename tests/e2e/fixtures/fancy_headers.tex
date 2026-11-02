@@ -1,0 +1,16 @@
+% kacho E2E fixture: fancyhdr running headers and footers (they must be
+% treated as text and not be decorated over).
+\documentclass[11pt]{article}
+\usepackage{geometry}
+\usepackage{lipsum}
+\usepackage{fancyhdr}
+\usepackage{kacho}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Kacho Running Header}
+\fancyhead[R]{Leftmost and Rightmost}
+\fancyfoot[C]{Page \thepage}
+\fancyfoot[R]{Footer text}
+\begin{document}
+\lipsum[1-10]
+\end{document}

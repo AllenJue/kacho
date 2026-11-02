@@ -1,0 +1,211 @@
+% Copyright 2026 Allen Jue
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%     http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+%
+% kacho-showcase.tex — Flagship kacho-e showcase with a kakejiku hanging-scroll
+% title page, warm washi ground, lush overhanging seasonal plates, and a
+% four-sided border-frame colophon.
+
+\documentclass[11pt,a4paper,twoside]{article}
+\usepackage[a4paper, inner=22mm, outer=56mm, top=32mm, bottom=34mm]{geometry}
+\usepackage{amsmath}
+\usepackage[
+  seed=7,
+  palette=hanga,
+  theme=haru,
+  layout=overhang,
+  ground=washi,
+  density=0.75,
+  birds=true,
+  seal=true
+]{kacho}
+
+\begin{document}
+
+% Page 1: Kakejiku Hanging-Scroll Title Page
+\kachoTitlePage[layout=kakejiku, palette=hanga, theme=haru, seed=7]{
+  title={Kach\=o-e Album Leaves},
+  subtitle={Procedural Japanese Watercolour \& Woodblock Margin Paintings for Lua\LaTeX},
+  author={Allen Jue},
+  date={2026}
+}
+
+% Page 2: Haru — Overhanging Sakura & Uguisu
+\kachoThisPage{theme=haru, palette=hanga, layout=overhang, motif={sakura,uguisu}, seed=11}
+\section*{I.\quad Of the Spring Bough (\emph{Haru})}
+
+A diagonal cherry bough (\emph{Prunus $\times$ yedoensis}, \emph{sakura}) enters from the upper outer margin, its notched five-petalled blossoms glazed with soft mineral rose (\emph{momo}) and warm shell white (\emph{gofun}) over handmade \emph{washi} paper. As the primary trunk extends from the margin anchor, its diameter tapers continuously in accordance with Leonardo da Vinci's area-preserving cross-section law ($r_{\text{parent}}^{2.25} = r_{\text{main}}^{2.25} + r_{\text{lat}}^{2.25}$), while each internode curves gently under the combined influence of upward phototropism and natural branch weight.
+
+\medskip
+\begin{center}
+\kachospray[width=0.82\linewidth, height=32mm, motif=sakura, seed=14, from=left]\\[3pt]
+{\small\itshape Fig.~1.\quad Lateral cherry spray with notched petals, golden stamens, and compound cymes.}
+\end{center}
+\medskip
+
+Near the fork of a secondary twig perches an olive-green \emph{uguisu} (Japanese bush warbler, \emph{Horornis diphone}), its posture aligned with the local tangent of the supporting branch. Along the outer twigs, fully opened blossoms alternate with half-opened cups, tight crimson-tipped buds, and delicate five-flowered cymes, while wind-borne petals drift across the lower margin toward the carved vermilion \emph{hanko} seal.
+
+\subsection*{1.1\quad Structure of the Corolla}
+
+In the classical \emph{kach\=o-gafu} tradition, each blossom is constructed from three concentric botanical layers:
+\begin{itemize}
+  \item \textbf{Corolla lobes:} Five obovate petals arranged at $72^\circ$ intervals, each bearing a characteristic apical cleft (\emph{sakura} notch) and four translucent wet-in-wet \emph{tarashikomi} wash passes.
+  \item \textbf{Androecium:} A radiating ring of slender filaments tipped with warm golden-ochre (\emph{yamabuki}) anthers surrounding the pale green receptacular cup.
+  \item \textbf{Calyx \& pedicel:} Five pointed reddish-russet sepals clasping the base of the floral tube, joined to the woody spur by an arched pedicel.
+\end{itemize}
+
+\begin{quote}
+\itshape
+Samazama no / koto omoidasu / sakura kana\\[2pt]
+How many, many things / they call to mind--- / these cherry blossoms.\\[2pt]
+\upshape\small --- Matsuo Bash\=o (1644--1694), \emph{Oi no Kobumi} (1688)
+\end{quote}
+
+\clearpage
+
+% Page 3: Haru/Natsu — Cascading Wisteria Corner Spray Interleaved with Plum & Bamboo
+\kachoThisPage{theme=haru, palette=hanga, layout=corner-spray, motif={wisteria,ume,bamboo}, seed=15}
+\section*{II.\quad Forms of Leaves \& Venation (\emph{Fuji})}
+
+From the upper corner, a woody wisteria liana (\emph{Wisteria floribunda}, \emph{fuji}) sweeps inward along the header band and trails pendulous violet racemes down the outer margin. Each raceme matures acropetally from open papilionaceous blossoms near the base to tight violet buds at the drooping tip, accompanied by pinnately compound leaves and curling tendrils.
+
+\begin{quote}
+  In netted-veined leaves, the woody fibres branch off from the main rib or midrib, divide into finer and finer veinlets, and unite with one another to form meshes of network; in parallel-veined leaves, such as bamboo (\emph{take}) and iris (\emph{ayame}), slender ribs run smoothly from base to apex.
+\end{quote}
+
+\subsection*{2.1\quad Principal Leaf Outlines}
+
+Following the morphological classifications of Kaibara Ekiken's \emph{Yamato Honz\=o} (1709) and Asa Gray's \emph{Botanical Text-Book}, the procedural foliage engine distinguishes six primary blade geometries:
+
+\medskip
+\noindent\textbf{Linear,} when narrow, several times longer than wide, and of nearly uniform breadth throughout, as in sweeping blades of meadow grass (\emph{susuki}).
+
+\smallskip
+\noindent\textbf{Lanceolate,} or lance-shaped, when conspicuously longer than wide and tapering smoothly toward both base and acuminate apex, as in bamboo (\emph{take}) and willow (\emph{yanagi}).
+
+\smallskip
+\noindent\textbf{Ovate,} when the outline resembles a longitudinal section of a hen's egg with the broader curve downward, characteristic of camellia (\emph{tsubaki}) and plum (\emph{ume}) foliage.
+
+\smallskip
+\noindent\textbf{Obovate,} the same form inverted so the broader rounded blade lies toward the distal tip, as in individual petals of the cherry and wild rose.
+
+\smallskip
+\noindent\textbf{Palmate,} when five or seven pointed lobes radiate from a single petiole base with deep serrated sinuses between them, as in the autumn maple (\emph{Acer palmatum}, \emph{momiji}).
+
+\smallskip
+\noindent\textbf{Pinnatifid,} when a compound leaf is divided into paired lateral leaflets along a central rachis, as in chrysanthemum (\emph{kiku}) and wisteria (\emph{fuji}).
+
+\medskip
+\begin{quote}
+\itshape
+Kutabirete / yado karu koro ya / fuji no hana\\[2pt]
+Weary from the road, / just at the hour I seek an inn--- / wisteria blossoms.\\[2pt]
+\upshape\small --- Matsuo Bash\=o (1644--1694), \emph{Oi no Kobumi} (1688)
+\end{quote}
+
+\clearpage
+
+% Page 4: Aki — Overhanging Momiji Maple & Mejiro
+\kachoThisPage{theme=aki, palette=hanga, layout=overhang, motif={maple,mejiro}, seed=21}
+\section*{III.\quad Autumn Maple \& Mineral Glazing (\emph{Momiji})}
+
+An overhanging Japanese maple bough (\emph{Acer palmatum}, \emph{momiji}) reaches down the outer margin in warm vermilion (\emph{shu}), iron rust (\emph{bengara}), and golden ochre (\emph{yamabuki}), while two white-eye songbirds (\emph{Zosterops japonicus}, \emph{mejiro}) converse among the upper twigs and the snow-crowned cone of Mount Fuji (\emph{Fugaku}) rises quietly in the lower corner.
+
+\subsection*{3.1\quad \emph{Tarashikomi} Pooling \& Oklab Pigment Mixing}
+
+Whereas naïve RGB interpolation between complementary pigments---such as indigo (\emph{ai}) and carmine (\emph{beni}), or pine green (\emph{matsuba}) and vermilion (\emph{shu})---collapses into muddy grey at the midpoint, \texttt{kacho} transforms all palette primaries into Björn Ottosson's perceptual \textbf{Oklab} colour space prior to blending:
+\[
+  C_{\text{mix}}(t) \;=\; \operatorname{Oklab}^{-1}\!\Bigl((1 - t)\,\operatorname{Oklab}(C_0) \;+\; t\,\operatorname{Oklab}(C_1)\Bigr), \qquad t \in [0, 1].
+\]
+Each petal and palmate maple leaf is rendered by laying down a translucent base wash ($\alpha \approx 0.28$), superposing two offset wet-in-wet \emph{tarashikomi} pools of shifted chroma ($\alpha \approx 0.42$ and $0.58$), and finishing with a delicate hairline rim and radiating primary veins.
+
+\subsection*{3.2\quad Atmospheric Perspective (\emph{Bokashi})}
+
+To evoke the depth of traditional \emph{ukiyo-e} woodblock prints and \emph{kanga-e} screens, secondary branches and ghost blossoms are recessed into the background at reduced opacity ($\alpha \in [0.16, 0.32]$), while foreground foliage and perched birds receive crisp \emph{sumi} ink key-lines and high-chroma mineral accents.
+
+\medskip
+\begin{center}
+\kachospray[width=0.80\linewidth, height=30mm, motif=maple, seed=27, from=right]\\[3pt]
+{\small\itshape Fig.~2.\quad Palmate \emph{momiji} maple spray with five-lobed leaves and samara winged seeds.}
+\end{center}
+\medskip
+
+\begin{quote}
+\itshape
+Yama kurete / momiji no ake wo / ubaikeri\\[2pt]
+As the mountain darkens, / twilight steals away the vermilion / of the maple leaves.\\[2pt]
+\upshape\small --- Yosa Buson (1716--1784), \emph{Buson Kush\=u} (1784)
+\end{quote}
+
+\clearpage
+
+% Page 5: Shochikubai — Pine, Plum, and Bamboo in Sumi Ink Wash
+\kachoThisPage{theme=shochikubai, palette=sumi, layout=rising, motif={pine,ume,sparrow}, seed=29}
+\section*{IV.\quad Three Friends of Winter (\emph{Sh\=ochikubai})}
+
+Rendered in the contemplative \texttt{sumi} ink-and-wash palette (\emph{suibokuga}), gnarled pine boughs (\emph{matsu}) with radiating semicircular needle fans meet early winter plum blossoms (\emph{ume}) and jointed bamboo culms (\emph{take}) above a misty grass bank. Together, these three species form the auspicious \emph{Sh\=ochikubai} triad celebrated in East Asian literati painting for resilience amidst frost and snow.
+
+\subsection*{4.1\quad The Five Tonality Grades of \emph{Sumi} Ink}
+
+In classical monochrome brush painting, colour is replaced by subtle gradations of carbon ink ground on an inkstone with water:
+\begin{enumerate}
+  \item \textbf{\emph{K\=oboku} (scorched ink):} Dense, lustrous charcoal-black applied to foreground bark fissures, bamboo nodal rings, and bird eye-rings.
+  \item \textbf{\emph{N\=oboku} (dark ink):} Deep black ink used for primary structural stems, pine needle clusters, and sharp calligraphy strokes.
+  \item \textbf{\emph{Ch\=uboku} (medium ink):} Medium warm grey tone defining secondary twigs, calyx cups, and foreground grass blades.
+  \item \textbf{\emph{Tanboku} (light ink):} Pale translucent wash employed for distant foliage, plum petal shading, and soft feather undercoats.
+  \item \textbf{\emph{Seiboku} (clear wash):} Whisper-faint mist (\emph{kasumi}) and background ghost leaves that merge almost imperceptibly into the raw paper.
+\end{enumerate}
+
+\medskip
+\begin{center}
+\kachospray[width=0.80\linewidth, height=32mm, motif=bamboo, seed=31, from=left]\\[3pt]
+{\small\itshape Fig.~3.\quad Jointed \emph{take} bamboo culm with nodal sheaths and windswept lanceolate leaves.}
+\end{center}
+\medskip
+
+\begin{quote}
+\itshape
+Ume ga ka ni / notto hi no deru / yamaji kana\\[2pt]
+In the scent of plum blossoms, / suddenly the sun rises / over the mountain path.\\[2pt]
+\upshape\small --- Matsuo Bash\=o (1644--1694), \emph{Sumidawara} (1694)
+\end{quote}
+
+\clearpage
+
+% Page 6: Border-Frame Contents & Colophon
+\kachoThisPage{theme=haru, palette=hanga, layout=border-frame, seed=33}
+\section*{Contents of the Album}
+
+\vspace{2pt}
+\noindent\textbf{I.\quad Of the Spring Bough (\emph{Haru})} \dotfill \textbf{2}\\[2pt]
+\hspace*{1.8em}1.1\quad Structure of the Corolla \dotfill 2\\[6pt]
+\noindent\textbf{II.\quad Forms of Leaves \& Venation (\emph{Fuji})} \dotfill \textbf{3}\\[2pt]
+\hspace*{1.8em}2.1\quad Principal Leaf Outlines \dotfill 3\\[6pt]
+\noindent\textbf{III.\quad Autumn Maple \& Mineral Glazing (\emph{Momiji})} \dotfill \textbf{4}\\[2pt]
+\hspace*{1.8em}3.1\quad \emph{Tarashikomi} Pooling \& Oklab Pigment Mixing \dotfill 4\\[2pt]
+\hspace*{1.8em}3.2\quad Atmospheric Perspective (\emph{Bokashi}) \dotfill 4\\[6pt]
+\noindent\textbf{IV.\quad Three Friends of Winter (\emph{Sh\=ochikubai})} \dotfill \textbf{5}\\[2pt]
+\hspace*{1.8em}4.1\quad The Five Tonality Grades of \emph{Sumi} Ink \dotfill 5\\[6pt]
+\noindent\textbf{V.\quad Colophon \& Algorithmic Specification} \dotfill \textbf{6}
+
+\bigskip
+\section*{V.\quad Colophon \& Algorithmic Specification}
+
+Every page in this booklet was synthesized live during Lua\LaTeX{} shipout by the \texttt{kacho} package without a single external image file, font ornament, or pre-compiled graphic asset.
+\begin{itemize}
+  \item \textbf{Shipout Inspection:} Inspects the compiled \texttt{shipout\_box} node tree (\texttt{HLIST}, \texttt{VLIST}, \texttt{GLYPH}, \texttt{RULE}, \texttt{WHATSIT}) to mark every inked syllable, equation, and table as a hard obstacle before growing a single branch.
+  \item \textbf{Botanical Morphogenesis:} Space-colonization branching (Runions et~al., 2007) and pipe-model allometry ($r_{\text{parent}}^{p} = \sum r_i^{p}$, Shinozaki et~al., 1964) with compound cymes, radiating umbels, curling tendrils, and perched songbirds.
+  \item \textbf{Deterministic Seed Control:} Controlled by Tommy Ettinger's public-domain \texttt{mulberry32} 32-bit state-mixing PRNG and FNV-1a stream hashing so every page is 100\% reproducible across platforms.
+\end{itemize}
+
+\end{document}

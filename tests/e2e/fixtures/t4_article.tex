@@ -1,0 +1,55 @@
+% kacho E2E Tier-4 fixture: academic-style article with sections, floats
+% (\rule placeholders, not images), tables, math and footnotes.
+\documentclass[11pt]{article}
+\usepackage{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{lipsum}
+\usepackage[theme=haru]{kacho}
+\title{Procedural Brushwork for Flower-and-Bird Painting}
+\author{A.~Author \and B.~Author}
+\date{1 November 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We describe a procedural model of tapered brush strokes and layered washes.
+\lipsum[1][1-4]
+\end{abstract}
+\section{Introduction}
+Kach\=o-e prints\footnote{Literally ``flower-and-bird pictures''.} combine
+botanical motifs with birds. \lipsum[2]
+\section{Model}
+A stroke of length $L$ has width $w(t)=w_0\,\sin(\pi t)^{0.6}$ for
+$t\in[0,1]$, and its centre line is a cubic B\'ezier
+\begin{equation}
+  B(t)=(1-t)^3P_0+3(1-t)^2tP_1+3(1-t)t^2P_2+t^3P_3 .
+\end{equation}
+Layered washes use $n\ge 6$ layers of opacity $\alpha\le 0.12$, giving a
+total coverage of
+\begin{align}
+  A_n &= 1-(1-\alpha)^n, & \lim_{n\to\infty} A_n &= 1.
+\end{align}
+\lipsum[3]
+\begin{figure}[t]
+  \centering
+  \rule{0.8\linewidth}{4cm}
+  \caption{A placeholder figure drawn with a rule.}\label{fig:a}
+\end{figure}
+\begin{table}[h]
+  \centering
+  \begin{tabular}{lrr}\hline
+  Motif & Strokes & Layers\\\hline
+  Ume & 120 & 6\\ Bamboo & 80 & 8\\ Iris & 64 & 7\\\hline
+  \end{tabular}
+  \caption{Stroke counts.}
+\end{table}
+\section{Results}
+See Figure~\ref{fig:a}.\footnote{A second footnote with \emph{emphasis}.}
+\lipsum[4-7]
+\begin{figure}[p]
+  \centering
+  \rule{0.9\linewidth}{0.5\textheight}
+  \caption{A full-page float placeholder.}
+\end{figure}
+\section{Conclusion}
+\lipsum[8-10]
+\end{document}

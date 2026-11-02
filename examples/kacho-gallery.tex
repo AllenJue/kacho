@@ -1,0 +1,146 @@
+% Copyright 2026 Allen Jue
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%     http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+%
+% kacho-gallery.tex — Visual reference catalog of all motifs, seasonal themes,
+% palettes, layout archetypes, and user-controlled placement commands.
+
+\documentclass[11pt,a4paper,twoside]{article}
+\usepackage[a4paper, inner=22mm, outer=56mm, top=32mm, bottom=34mm]{geometry}
+\usepackage[
+  seed=5,
+  palette=hanga,
+  theme=haru,
+  layout=overhang,
+  ground=washi,
+  density=0.70,
+  birds=true,
+  seal=true
+]{kacho}
+
+\begin{document}
+
+% Page 1: Kakejiku Title Page
+\kachoTitlePage[layout=kakejiku, palette=hanga, theme=haru, seed=5]{
+  title={The Kach\=o Visual Gallery},
+  subtitle={Complete Reference of Motifs, Themes, Palettes, Layouts, and Placement Controls},
+  author={Allen Jue},
+  date={2026}
+}
+
+% Page 2: Ume (Plum) + Uguisu
+\kachoThisPage{theme=fuyu, palette=hanga, layout=overhang, motif={ume,uguisu}, seed=11}
+\section*{Plate 1: \texttt{motif=\{ume,uguisu\}}, \texttt{layout=overhang}}
+Gnarled winter plum (\emph{ume}) overhanging from the upper outer margin with rounded five-petal blossoms, tight crimson buds, a perched bush warbler (\emph{uguisu}), and a vermilion \emph{hanko} seal.
+\clearpage
+
+% Page 3: Sakura (Cherry) + Corner Spray
+\kachoThisPage{theme=haru, palette=hanga, layout=corner-spray, motif={sakura,robin}, seed=12}
+\section*{Plate 2: \texttt{motif=\{sakura,robin\}}, \texttt{layout=corner-spray}}
+Mountain cherry (\emph{sakura}) with notched pink petals wrapping the upper-outer corner in an L-shaped spray, accompanied by a perched Koson-style robin and drifting petals.
+\clearpage
+
+% Page 4: Bamboo (Take) + Margin Column
+\kachoThisPage{theme=natsu, palette=sumi, layout=margin-column, motif=bamboo, seed=13}
+\section*{Plate 3: \texttt{motif=bamboo}, \texttt{layout=margin-column}, \texttt{palette=sumi}}
+Segmented \emph{take} bamboo culms rising in the outer margin with nodal rings and swept lanceolate leaf fans in \texttt{sumi} ink wash.
+\clearpage
+
+% Page 5: Orchid (Ran) + Iris (Ayame)
+\kachoThisPage{theme=natsu, palette=hanga, layout=margin-column, motif=iris, seed=14}
+\kachoSpawn{at=bl, from=safe, dx=8mm, dy=8mm, angle=45, size=55mm, motif=orchid, seed=41}
+\section*{Plate 4: \texttt{motif=iris} \& \texttt{\textbackslash kachoSpawn\{motif=orchid\}}}
+Summer \emph{ayame} iris with violet falls and upright standards in the outer column, paired with a user-spawned spring orchid (\emph{shunran}) clump anchored at the bottom-left safe corner.
+\clearpage
+
+% Page 6: Wisteria (Fuji) + Header Garland
+\kachoThisPage{theme=haru, palette=hanga, layout=header-garland, motif=wisteria, seed=15}
+\section*{Plate 5: \texttt{motif=wisteria}, \texttt{layout=header-garland}}
+Overhead wisteria vine spanning the top margin band with drooping violet racemes and pinnate compound leaflets.
+\clearpage
+
+% Page 7: Maple (Momiji) + Mejiro
+\kachoThisPage{theme=aki, palette=hanga, layout=overhang, motif={maple,mejiro}, seed=16}
+\section*{Plate 6: \texttt{motif=\{maple,mejiro\}}, \texttt{theme=aki}}
+Autumn \emph{momiji} maple spray in vermilion and ochre with palmately lobed leaves and a perched Japanese white-eye (\emph{mejiro}).
+\clearpage
+
+% Page 8: Pine (Matsu) + Camellia (Tsubaki) + Sparrow
+\kachoThisPage{theme=shochikubai, palette=hanga, layout=rising, motif={pine,sparrow}, seed=17}
+\kachoSpawn{at=tr, from=safe, dx=-6mm, dy=-5mm, angle=-168, size=65mm, motif=camellia, seed=42}
+\section*{Plate 7: \texttt{motif=pine}, \texttt{theme=shochikubai} \& \texttt{motif=camellia}}
+Gnarled pine (\emph{matsu}) with radiating needle fans and a perched tree sparrow (\emph{suzume}), complemented by a winter camellia (\emph{tsubaki}) spray spawned from the top-right corner.
+\clearpage
+
+% Page 9: Osmanthus, Narcissus, and Chrysanthemum (Bonus Flora)
+\kachoThisPage{theme=aki, palette=hanga, layout=overhang, motif=osmanthus, seed=18}
+\kachoSpawn{at=bl, from=safe, dx=10mm, dy=6mm, angle=12, size=62mm, motif=narcissus, seed=43}
+\section*{Plate 8: \texttt{motif=osmanthus}, \texttt{motif=narcissus} \& Inline \texttt{chrysanthemum}}
+Fragrant orange \emph{kinmokusei} osmanthus in the outer margin, winter \emph{suisen} narcissus spawned at the lower left, and an inline golden \emph{kiku} chrysanthemum study below:
+
+\bigskip
+\begin{center}
+\kachospray[width=0.72\linewidth, height=40mm, motif=chrysanthemum, seed=25, from=left]
+\end{center}
+\clearpage
+
+% Page 10: Scenery — Mount Fuji, Scholar Rock, Kasumi Mist, and Shikishi
+\kachoThisPage{theme=natsu, palette=hanga, layout=footer-ground, motif=fuji, seed=19}
+\section*{Plate 9: \texttt{layout=footer-ground}, \texttt{motif=fuji} \& Scholar Rock}
+Footer ground composition along the bottom margin featuring a misty mineral ground wash, angular scholar rock, and distant Mount Fuji.
+\clearpage
+
+% Page 11: Scattered Petals + User Spawns
+\kachoThisPage{theme=haru, palette=hanga, layout=scattered-petals, seed=20}
+\kachoSpawn{at=br, from=safe, dx=-8mm, dy=10mm, angle=135, size=65mm, motif=ume, seed=44}
+\section*{Plate 10: \texttt{layout=scattered-petals} \& \texttt{\textbackslash kachoSpawn}}
+Light petal drift across the page margins combined with an explicit bottom-right \texttt{\textbackslash kachoSpawn} plum bough.
+\clearpage
+
+% Page 12: Four-Sided Border Frame
+\kachoThisPage{theme=haru, palette=hanga, layout=border-frame, seed=21}
+\section*{Contents of the \emph{Kach\=o-gafu} Gallery}
+
+Continuous four-sided botanical vine and blossom frame (\texttt{layout=border-frame}) enclosing the text block across the top, bottom, left, and right margin bands with rounded corner turns.
+
+\bigskip
+\noindent\textbf{Frontispiece\quad \emph{Kakejiku} Hanging-Scroll Title Page} \dotfill \textbf{1}\\[5pt]
+\noindent\textbf{Plate 1\quad Winter Plum (\emph{Ume}) \& Bush Warbler (\emph{Uguisu})} \dotfill \textbf{2}\\
+\hspace*{1.8em}{\small Overhanging plum boughs interleaved with bamboo, ghost blossoms, and perched \emph{uguisu}.}\\[5pt]
+\noindent\textbf{Plate 2\quad Mountain Cherry (\emph{Sakura}) \& Robin (\texttt{corner-spray})} \dotfill \textbf{3}\\
+\hspace*{1.8em}{\small L-shaped corner cherry spray with notched pink petals, perched robin, and drifting petals.}\\[5pt]
+\noindent\textbf{Plate 3\quad Monochrome \emph{Sumi} Bamboo (\emph{Take}, \texttt{margin-column})} \dotfill \textbf{4}\\
+\hspace*{1.8em}{\small Jointed three-tier bamboo culms and layered ink-wash leaf fans on raw \emph{washi}.}\\[5pt]
+\noindent\textbf{Plate 4\quad Summer Iris (\emph{Ayame}) \& Spawned Spring Orchid (\emph{Ran})} \dotfill \textbf{5}\\
+\hspace*{1.8em}{\small Outer-column iris with violet falls paired with a bottom-left \texttt{\textbackslash kachoSpawn} orchid.}\\[5pt]
+\noindent\textbf{Plate 5\quad Overhead Wisteria (\emph{Fuji}, \texttt{header-garland})} \dotfill \textbf{6}\\
+\hspace*{1.8em}{\small Horizontal wisteria liana across the top margin with pendulous violet racemes.}\\[5pt]
+\noindent\textbf{Plate 6\quad Autumn Maple (\emph{Momiji}) \& White-Eye (\emph{Mejiro})} \dotfill \textbf{7}\\
+\hspace*{1.8em}{\small Overhanging maple boughs in vermilion and ochre interleaved with bamboo and perched \emph{mejiro}.}\\[5pt]
+\noindent\textbf{Plate 7\quad \emph{Sh\=ochikubai} Pine (\emph{Matsu}) \& Spawned Camellia (\emph{Tsubaki})} \dotfill \textbf{8}\\
+\hspace*{1.8em}{\small Radiating \emph{matsuba} needle clusters with perched sparrow and top-right \texttt{\textbackslash kachoSpawn} camellia.}\\[5pt]
+\noindent\textbf{Plate 8\quad Osmanthus (\emph{Kinmokusei}), Narcissus \& Inline Chrysanthemum} \dotfill \textbf{9}\\
+\hspace*{1.8em}{\small Fragrant \emph{kinmokusei}, lower-left \emph{suisen}, and an inline \texttt{\textbackslash kachospray} golden \emph{kiku}.}\\[5pt]
+\noindent\textbf{Plate 9\quad Footer Ground, Scholar Rock \& Mount Fuji} \dotfill \textbf{10}\\
+\hspace*{1.8em}{\small Misty mineral ground wash, horizontal floral garland, and snow-capped \emph{Fugaku}.}\\[5pt]
+\noindent\textbf{Plate 10\quad Scattered Petal Drift \& Corner Spawn} \dotfill \textbf{11}\\
+\hspace*{1.8em}{\small Wind-borne blossoms across all four margins with bottom-right plum spray.}\\[5pt]
+\noindent\textbf{Plate 11\quad Four-Sided Botanical Border Frame} \dotfill \textbf{12}
+
+\bigskip
+\begin{quote}
+\itshape
+Every stem, petal, leaf vein, and bird feather in this twelve-plate gallery is synthesized procedurally in pure Lua + PDF vector operators at \texttt{shipout/background} time.
+\end{quote}
+
+\end{document}

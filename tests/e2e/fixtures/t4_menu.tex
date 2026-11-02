@@ -1,0 +1,18 @@
+% kacho E2E Tier-4 fixture: A5 landscape tea-house menu with tabular price
+% lists and centred headings.
+\documentclass[11pt,landscape]{article}
+\usepackage[a5paper,landscape,margin=2.5cm]{geometry}
+\usepackage[theme=shochikubai]{kacho}
+\pagestyle{empty}
+\begin{document}
+\begin{center}{\Large\scshape Tea House of the Three Friends}\end{center}
+\begin{center}\begin{tabular}{l@{\hspace{2cm}}r}
+Sencha, first flush & 600\\ Gyokuro & 900\\ Matcha with wagashi & 1100\\
+Hojicha & 500\\ Genmaicha & 450\\
+\end{tabular}\end{center}
+\newpage
+\begin{center}{\Large\scshape Seasonal Sweets}\end{center}
+\begin{center}\begin{tabular}{l@{\hspace{2cm}}r}
+Plum blossom nerikiri & 400\\ Sakura mochi & 350\\ Chestnut yokan & 380\\
+\end{tabular}\end{center}
+\end{document}

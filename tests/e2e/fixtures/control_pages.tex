@@ -1,0 +1,15 @@
+% kacho E2E fixture: per-page control. Page 2 is disabled with \kachoOff,
+% page 3 re-enabled with \kachoOn. Each page is exactly one \newpage block.
+\documentclass[11pt]{article}
+\usepackage{geometry}
+\usepackage{lipsum}
+\usepackage{kacho}
+\begin{document}
+\lipsum[1-2]
+\newpage
+\kachoOff
+\lipsum[3-4]
+\newpage
+\kachoOn
+\lipsum[5-6]
+\end{document}

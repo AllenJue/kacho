@@ -1,0 +1,30 @@
+% kacho E2E fixture (Feature 32): three pages with per-page hooks for user
+% placement. Hooks (defined by the harness before \input; commands come from
+% tests/e2e/api_config.py):
+%   \KachoSetupArgs      -> \kachosetup{...} after loading kacho
+%   \KachoPageOneCmd     -> issued at the top of page 1 (e.g. spawn points)
+%   \KachoPageTwoCmd     -> issued at the top of page 2
+%   \KachoPageThreeCmd   -> issued at the top of page 3
+\documentclass[11pt]{article}
+\usepackage{geometry}
+\usepackage{lipsum}
+\usepackage{kacho}
+\ifdefined\KachoSetupArgs
+  \expandafter\kachosetup\expandafter{\KachoSetupArgs}
+\fi
+\providecommand\KachoPageOneCmd{}
+\providecommand\KachoPageTwoCmd{}
+\providecommand\KachoPageThreeCmd{}
+\begin{document}
+\KachoPageOneCmd
+\section{Spawn Points in the Garden}
+\lipsum[1-2]
+\newpage
+\KachoPageTwoCmd
+\section{A Second Page}
+\lipsum[3-4]
+\newpage
+\KachoPageThreeCmd
+\section{A Third Page}
+\lipsum[5-6]
+\end{document}

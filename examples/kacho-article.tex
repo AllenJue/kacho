@@ -1,0 +1,169 @@
+% Copyright 2026 Allen Jue
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%     http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+%
+% kacho-article.tex — A realistic two-sided academic article with stock
+% LaTeX margins, mathematics, tables, footnotes, and an inline \kachospray
+% figure demonstrating zero text overlap.
+
+\documentclass[11pt,a4paper,twoside]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage[
+  seed=12,
+  palette=hanga,
+  theme=haru,
+  layout=auto,
+  density=0.65,
+  birds=true,
+  seal=true
+]{kacho}
+
+\title{\textbf{Algorithmic \emph{Kach\=o-e}: Procedural Botanical and Avian Illumination in Lua\LaTeX{} Margins}}
+\author{Allen Jue\\ \small Studio for Computational Typography \& East Asian Brushwork}
+\date{Spring 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Traditional Japanese \emph{kach\=o-ga} (flower-and-bird paintings) and \emph{shin-hanga} woodblock prints achieve expressive naturalism through economy of gesture: a tapering ink-wash bough entering from a page edge, translucent mineral glazes pooled along petal rims, and a solitary songbird counterbalancing negative space (\emph{ma}). This article describes the mathematical and typographic architecture of \texttt{kacho}, a pure Lua\LaTeX{} package that synthesizes procedural watercolour and \emph{suibokuga} margin compositions directly at page shipout without external images or fonts.
+\end{abstract}
+
+\section{Introduction: Margin Illumination and Negative Space}
+
+When illuminating a typeset page, ornament and prose share a fixed sheet of paper. Unlike static border clip-art, \emph{kach\=o-e} compositions are asymmetric and responsive to empty space. A plum branch (\emph{ume}) or cherry spray (\emph{sakura}) enters from the outer margin edge, arches toward the upper corner, and arrests its growth before touching a single glyph of the text block.\footnote{At shipout time, \texttt{kacho} traverses Lua\TeX's constructed \texttt{vlist} and \texttt{hlist} node trees to measure the exact bounding box of every glyph, rule, math list, and footnote.}
+
+\begin{quote}
+\itshape
+Shiraume ya / sumi kanbashiki / K\=orokan\\[2pt]
+White plum blossoms--- / and the fragrance of freshly ground ink / at the K\=orokan hall.\\[2pt]
+\upshape\small --- Yosa Buson (1716--1784), \emph{Buson Kush\=u} (1784)
+\end{quote}
+
+Every page derives an independent deterministic pseudo-random stream from a document seed and the page index. Recompiling the same source always yields byte-identical vector paths, while consecutive pages draw from a shuffled composition deck so no two adjacent spreads repeat the same silhouette.
+
+\section{Space Colonization and Pipe-Model Branching}
+
+Woody sprays (\emph{ume}, \emph{sakura}, \emph{momiji}, \emph{matsu}, \emph{tsubaki}, and \emph{kinmokusei}) are grown inside the free margin envelope $\Omega \subset \mathbb{R}^2$ using a two-dimensional adaptation of the attractor-cloud space colonization algorithm of Runions, Lane, and Prusinkiewicz~(2007). Let $A = \{a_1, \dots, a_m\} \subset \Omega$ denote a Poisson-like sample of nutrient attractors inside the allowed margin band, and let $V = \{v_1, \dots, v_k\}$ denote the active skeleton vertices. At each growth step, each attractor $a_j$ influences its nearest skeleton node $v_i$ within radius $d_{\mathrm{reach}}$:
+\begin{equation}
+  \hat{n}_i = \frac{\sum_{a_j \in \mathcal{N}(v_i)} \frac{a_j - v_i}{\|a_j - v_i\|}}{\left\|\sum_{a_j \in \mathcal{N}(v_i)} \frac{a_j - v_i}{\|a_j - v_i\|}\right\|},
+  \qquad
+  v_{i}^{\mathrm{new}} = v_i + \delta \cdot \frac{\hat{n}_i + \tau \hat{g}}{\|\hat{n}_i + \tau \hat{g}\|},
+  \label{eq:colonize}
+\end{equation}
+where $\delta$ is the internode step length and $\tau \hat{g}$ imparts seasonal phototropism or gravitropic droop (upward for gnarled winter plum, downward for cascading wisteria racemes).
+
+Once the skeletal graph is complete, branch thicknesses are assigned from the twig tips back to the root following the botanical pipe model of Shinozaki et~al.~(1964). If a parent internode splits into child branches with radii $r_1, \dots, r_c$, cross-sectional vascular area is conserved according to
+\begin{equation}
+  r_{\mathrm{parent}}^p = \sum_{j=1}^{c} r_j^p, \qquad p \in [1.95, 2.15],
+  \label{eq:pipemodel}
+\end{equation}
+producing thick gnarled basal boughs that taper organically into delicate terminal shoots.
+
+\begin{table}[t]
+\centering
+\caption{Seasonal themes (\texttt{theme=}), primary botanical motifs, avian companions, and atmospheric accents in \texttt{kacho}.}
+\label{tab:themes}
+\medskip
+\begin{tabular}{@{}lllll@{}}
+\toprule
+\textbf{Theme} & \textbf{Season} & \textbf{Primary Flora} & \textbf{Perched Bird} & \textbf{Atmosphere} \\
+\midrule
+\texttt{haru}        & Spring       & Sakura, Ume, Wisteria, Orchid     & Uguisu, Robin   & Kasumi mist \\
+\texttt{natsu}       & Summer       & Iris (\emph{ayame}), Bamboo       & Uguisu, Swallow & Mt.\ Fuji, Bokashi \\
+\texttt{aki}         & Autumn       & Momiji maple, Kiku, Osmanthus     & Mejiro, Sparrow & Ochre horizon \\
+\texttt{fuyu}        & Winter       & Ume, Pine, Narcissus, Camellia    & Sparrow         & Scholar rock \\
+\texttt{shochikubai} & New Year     & Pine, Bamboo, Plum (Trio)         & Uguisu          & Kinpaku gold \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+\kachoThisPage{theme=natsu, layout=overhang, seed=23}
+
+\section{Perceptual Pigment Mixing in Oklab}
+
+Watercolour glazing requires smooth tonal transitions between concentrated mineral pigment and warm \emph{washi} paper. Linear interpolation in device RGB produces muddy grey midtones when mixing complementary pigments such as indigo (\emph{ai}) and cinnabar (\emph{shu}). Instead, \texttt{kacho} transforms linear sRGB tristimulus values $(R,G,B)$ into Bj\"orn Ottosson's perceptual Oklab space via cube-root cone responses:
+\begin{equation}
+  \begin{bmatrix} l \\ m \\ s \end{bmatrix} = \mathbf{M}_1 \begin{bmatrix} R \\ G \\ B \end{bmatrix},
+  \qquad
+  \begin{bmatrix} L \\ a \\ b \end{bmatrix} = \mathbf{M}_2 \begin{bmatrix} l^{1/3} \\ m^{1/3} \\ s^{1/3} \end{bmatrix}.
+  \label{eq:oklab}
+\end{equation}
+All wet-on-wet washes (\emph{nijimi}), pooled back-run rims, and horizon gradations (\emph{bokashi}) interpolate in $(L,a,b)$ before converting back to sRGB PDF fill operators.
+
+\begin{figure}[t]
+\centering
+\kachospray[width=0.72\linewidth, height=42mm, motif=ume, seed=19, from=left]
+\caption{An inline botanical spray (\texttt{\textbackslash kachospray[width=0.72\textbackslash linewidth, height=42mm, motif=ume, seed=19, from=left]}) painted inside a reserved box in the normal figure flow. The layout engine automatically clips and bounds all strokes inside the box while keeping the caption untouched.}
+\label{fig:inline-spray}
+\end{figure}
+
+As demonstrated in Figure~\ref{fig:inline-spray}, authors can also embed self-contained botanical studies directly inside floating figures or section dividers using \texttt{\textbackslash kachospray}. Each inline box records its elements with an \texttt{inline-} prefix and isolates its random stream from the surrounding page margin layout.\footnote{Changing the \texttt{seed} or \texttt{motif} of an inline \texttt{\textbackslash kachospray} never alters the outer margin composition of the page on which the float lands.}
+
+\clearpage
+\kachoThisPage{theme=aki, layout=corner-spray, seed=34}
+
+\section{Calligraphic Brush Envelopes and Layered Washes}
+
+A \emph{sumi-e} brushstroke is not a uniform-width polyline; the artist presses the belly of the goat-hair or wolf-hair brush onto the absorbent paper, pauses slightly at joints, and lifts the tip to a sharp point. Given an arc-length parameterized spine $\gamma(u) \in \mathbb{R}^2$ for $u \in [0,1]$ with unit normal $\hat{\nu}(u)$, \texttt{kacho} constructs closed left and right ribbon boundaries:
+\begin{equation}
+  \gamma_{\pm}(u) = \gamma(u) \pm \frac{1}{2} w_0 \, \phi(u) \Bigl(1 + \alpha \, \eta(f u + \theta_0)\Bigr) \hat{\nu}(u),
+  \label{eq:ribbon}
+\end{equation}
+where $\phi(u)$ is the brush pressure profile (\texttt{taper}, \texttt{nail}, \texttt{bamboo}, or \texttt{leaf}), and $\eta(\cdot)$ is smoothstep-interpolated 1-D coherent noise that simulates hand tremor and paper tooth. When dry-brush \emph{kasure} is requested, the interior of the stroke is split into parallel bristle filaments separated by un-inked streaks of paper.
+
+\begin{quote}
+\itshape
+Yama kurete / momiji no ake wo / ubaikeri\\[2pt]
+As the mountain darkens, / twilight steals away the vermilion / of the maple leaves.\\[2pt]
+\upshape\small --- Yosa Buson (1716--1784), \emph{Buson Kush\=u} (1784)
+\end{quote}
+
+Each petal and leaf is glazed in four passes inspired by Curtis et~al.~(1997) and adapted from the watercolour architecture of \texttt{florilegium}:
+\begin{enumerate}
+  \item \textbf{Wet body flood:} 2--4 jittered translucent polygon washes ($\alpha \approx 0.14$) establish the luminous base hue.
+  \item \textbf{Multiply interior mottle:} A \texttt{/BM /Multiply} ExtGState pass deepens the petal base or calyx junction.
+  \item \textbf{Back-run pooled rim:} A narrow darker perimeter stroke ($\alpha \approx 0.22$) reproduces capillary pigment migration toward drying wet edges.
+  \item \textbf{Venation and lifted highlights:} Fine radiating veins (\texttt{vein\_fan}) and lifted dry-brush streaks reveal the underlying paper tone.
+\end{enumerate}
+
+\clearpage
+\kachoThisPage{theme=fuyu, layout=rising, seed=45}
+
+\section{Transactional Collision Avoidance at Shipout}
+
+Safety of the typeset text is a hard invariant. Let $B_{\mathrm{paper}} = [0, W] \times [0, H]$ be the page rectangle, $B_{\mathrm{safe}}$ be the paper inset by the safety margin $s \ge 5\,\mathrm{mm}$, and $\{E_1, \dots, E_r\}$ be the union of the typearea and all measured glyph/rule/graphic bounding boxes inflated by the protective buffer $b \ge 4\,\mathrm{mm}$.
+
+Every motif organ is drawn inside a transactional trial context (\texttt{ctx:try} or \texttt{Plan:attempt}). A candidate brushstroke or flower with bounding box $R$ is committed to the PDF stream if and only if
+\begin{equation}
+  R \subseteq B_{\mathrm{safe}}
+  \qquad \text{and} \qquad
+  \forall j \in \{1, \dots, r\}, \quad R \cap E_j = \emptyset.
+  \label{eq:safety}
+\end{equation}
+If a candidate branch or blossom violates~\eqref{eq:safety}, the trial buffer is discarded without emitting a single PDF operator, and the layout engine either shrinks the scale factor $s \in \{1.0, 0.80, 0.64, 0.50\}$ or prunes the offending twig. Consequently, blossoms never get sliced in half by a clipping rectangle, and body text remains completely untouched.
+
+\begin{quote}
+\itshape
+Iza saraba / yukimi ni korobu / tokoro made\\[2pt]
+Come then, let us go / out to view the falling snow--- / till we tumble over!\\[2pt]
+\upshape\small --- Matsuo Bash\=o (1644--1694), \emph{Oi no Kobumi} (1688)
+\end{quote}
+
+\section{Conclusion}
+
+By uniting Lua\TeX{} shipout box inspection, space-colonization branching, pipe-model allometry, and Oklab watercolour glazing, \texttt{kacho} brings the quiet elegance of Japanese \emph{kach\=o-e} album leaves to standard \LaTeX{} documents with zero external asset dependencies.
+
+\end{document}

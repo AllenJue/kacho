@@ -1,0 +1,15 @@
+% kacho E2E fixture: title page followed by two body pages.
+% \KachoTitleCmd (harness hook) holds the title-page command.
+\documentclass[11pt]{article}
+\usepackage{geometry}
+\usepackage{lipsum}
+\usepackage{kacho}
+\providecommand\KachoTitleCmd{\kachoTitlePage{title={Spring Garden}, subtitle={A Kacho Test}, author={E2E Suite}}}
+\begin{document}
+\KachoTitleCmd
+\clearpage
+\section{First Body Section}
+\lipsum[1-3]
+\section{Second Body Section}
+\lipsum[4-8]
+\end{document}

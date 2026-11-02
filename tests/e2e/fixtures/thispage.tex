@@ -1,0 +1,17 @@
+% kacho E2E fixture: \kachoThisPage on page 2 only.
+% \KachoNoThisPage (harness hook) gives the reference rendering.
+\documentclass[11pt]{article}
+\usepackage{geometry}
+\usepackage{lipsum}
+\usepackage{kacho}
+\providecommand\KachoTestLayout{header-garland}
+\begin{document}
+\lipsum[1-2]
+\newpage
+\ifdefined\KachoNoThisPage\else
+  \edef\KachoTmp{\noexpand\kachoThisPage{layout=\KachoTestLayout}}\KachoTmp
+\fi
+\lipsum[3-4]
+\newpage
+\lipsum[5-6]
+\end{document}

@@ -1,0 +1,18 @@
+% kacho E2E Tier-4 fixture: two-sided booklet-style report (A5) with a
+% table of contents, chapters and a running head.
+\documentclass[10pt,twoside,openany]{report}
+\usepackage[a5paper]{geometry}
+\usepackage{lipsum}
+\usepackage[theme=aki,palette=hanga]{kacho}
+\pagestyle{headings}
+\begin{document}
+\tableofcontents
+\chapter{Maple Viewing}
+\lipsum[1-5]
+\section{At the Temple}
+\lipsum[6-9]
+\chapter{Chrysanthemum Festival}
+\lipsum[10-14]
+\section{Displays}
+\lipsum[15-18]
+\end{document}

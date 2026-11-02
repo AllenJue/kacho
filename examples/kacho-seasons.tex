@@ -1,0 +1,125 @@
+% Copyright 2026 Allen Jue
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+%     http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+%
+% kacho-seasons.tex — Four seasonal chapters (Haru, Natsu, Aki, Fuyu) on A5
+% paper with shikishi poem-card chapter openers and classic haiku.
+
+\documentclass[10pt,a5paper,twoside,openany]{report}
+\usepackage[a5paper, inner=16mm, outer=34mm, top=22mm, bottom=24mm]{geometry}
+\usepackage[
+  seed=18,
+  palette=hanga,
+  theme=haru,
+  layout=auto,
+  ground=washi,
+  density=0.65,
+  birds=true,
+  seal=true
+]{kacho}
+
+\begin{document}
+
+% ======================================================================
+% Chapter 1: HARU (Spring)
+% ======================================================================
+\kachoThisPage{theme=haru, layout=shikishi, palette=hanga, seed=101}
+\chapter*{Haru --- Spring Awakening}
+\vspace{2mm}
+\noindent\emph{Plum blossoms in lingering frost, mountain cherry petals on the breeze, and the bush warbler's first song.}
+\clearpage
+
+\kachoThisPage{theme=haru, layout=overhang, palette=hanga, motif={sakura,uguisu}, seed=102}
+\section*{Notes on the Spring Margin}
+
+In classical Japanese poetics (\emph{saijiki}), spring opens not with full warmth but with \emph{ume}---the plum tree blooming while snow still clings to dark, angular boughs. A few weeks later, \emph{sakura} cherry blossoms unfurl in pale washes of \emph{sakura-nezumi} and shell-white \emph{gofun}, each petal carrying a characteristic apical notch, while cascading \emph{fuji} wisteria racemes drape from upper trellises.
+
+\begin{quote}
+\itshape
+Ume ichirin / ichirin hodo no / atatakasa\\[2pt]
+One plum blossom opens, / and by one blossom's measure, / that much warmth returns.\\[2pt]
+\upshape\footnotesize --- Hattori Ransetsu (1654--1707), \emph{Genroku Hyakunin Isshu}
+\end{quote}
+
+On this spread, the \texttt{haru} theme pairs overhanging cherry and plum sprays with the olive-green \emph{uguisu} (Japanese bush warbler) and a vermilion \emph{hanko} seal low in the outer margin.
+
+\clearpage
+
+% ======================================================================
+% Chapter 2: NATSU (Summer)
+% ======================================================================
+\kachoThisPage{theme=natsu, layout=shikishi, palette=sumi, seed=201}
+\chapter*{Natsu --- Summer Waters}
+\vspace{2mm}
+\noindent\emph{Irises by the plank bridge, jointed green bamboo in rain, and swallows skimming the marsh.}
+\clearpage
+
+\kachoThisPage{theme=natsu, layout=margin-column, palette=hanga, motif=iris, seed=202}
+\section*{Irises and Jointed Bamboo}
+
+Summer \emph{kach\=o-e} turns toward cool greens and deep indigo (\emph{ai}). Upright sword-like blades of \emph{ayame} and \emph{kakitsubata} iris rise from shallow water, crowned by violet standards and drooping falls marked with a bright gold signal stripe. Beside them, segmented \emph{take} bamboo culms ascend in brisk calligraphic strokes, their nodal rings (\emph{fushi}) anchoring clusters of lance-shaped leaves swept by the summer wind.
+
+\begin{quote}
+\itshape
+Hototogisu / \=otakewara wo / moru tsukiyo\\[2pt]
+A cuckoo cries--- / moonlight filtering through / the great bamboo grove.\\[2pt]
+\upshape\footnotesize --- Matsuo Bash\=o (1644--1694), \emph{Saga Nikki} (1691)
+\end{quote}
+
+\clearpage
+
+% ======================================================================
+% Chapter 3: AKI (Autumn)
+% ======================================================================
+\kachoThisPage{theme=aki, layout=shikishi, palette=hanga, seed=301}
+\chapter*{Aki --- Autumn Brocade}
+\vspace{2mm}
+\noindent\emph{Palmate momiji maple leaves in vermilion and ochre, golden chrysanthemums, and sweet osmanthus.}
+\clearpage
+
+\kachoThisPage{theme=aki, layout=overhang, palette=hanga, motif={maple,mejiro}, seed=302}
+\section*{Maple Boughs and Autumn Dew}
+
+Autumn brings the richest mineral pigments of the woodblock palette: cinnabar (\emph{shu}), iron-oxide red (\emph{bengara}), and gamboge gold (\emph{yamabuki}). Seven-lobed \emph{momiji} maple leaves hang from slender zig-zagging twigs where the olive-backed \emph{mejiro} (Japanese white-eye) perches, while golden \emph{kiku} chrysanthemums and fragrant \emph{kinmokusei} osmanthus clusters bloom below.
+
+\begin{quote}
+\itshape
+Yama kurete / momiji no ake wo / ubaikeri\\[2pt]
+As the mountain darkens, / twilight steals away the vermilion / of the maple leaves.\\[2pt]
+\upshape\footnotesize --- Yosa Buson (1716--1784), \emph{Buson Kush\=u} (1784)
+\end{quote}
+
+\clearpage
+
+% ======================================================================
+% Chapter 4: FUYU & SHOCHIKUBAI (Winter & The Three Friends)
+% ======================================================================
+\kachoThisPage{theme=fuyu, layout=shikishi, palette=sumi, seed=401}
+\chapter*{Fuyu --- Winter Stillness}
+\vspace{2mm}
+\noindent\emph{Craggy pine needles, crimson camellias in snow, winter narcissus, and the auspicious Sh\=ochikubai trio.}
+\clearpage
+
+\kachoThisPage{theme=shochikubai, layout=overhang, palette=hanga, motif={pine,ume,sparrow}, seed=402}
+\section*{The Three Friends of Winter}
+
+In the stillness of winter (\emph{fuyu}), spare ink washes come to the fore. Plump \emph{suzume} tree sparrows fluff their chestnut feathers on snowy branches beside waxy crimson \emph{tsubaki} camellias and fragrant white \emph{suisen} narcissus. For the New Year, the \texttt{shochikubai} theme unites \emph{sh\=o} (gnarled pine with radiating needle fans), \emph{chiku} (resilient bamboo), and \emph{bai} (early plum blossoms)---celebrated across East Asian art as emblems of endurance and renewal.
+
+\begin{quote}
+\itshape
+Ume ga ka ni / notto hi no deru / yamaji kana\\[2pt]
+In the scent of plum blossoms, / suddenly the sun rises / over the mountain path.\\[2pt]
+\upshape\footnotesize --- Matsuo Bash\=o (1644--1694), \emph{Sumidawara} (1694)
+\end{quote}
+
+\end{document}

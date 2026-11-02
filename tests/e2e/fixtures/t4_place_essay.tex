@@ -1,0 +1,29 @@
+% kacho E2E tier-4 fixture (Feature 32): an essay whose margin decoration is
+% restricted to the right and bottom bands (a vine running around the text,
+% like the florilegium reference) with an inline spray figure between the
+% paragraphs. Hooks: \KachoRegionsCmd, \KachoSprayCmd (from api_config.py).
+\documentclass[11pt,a4paper]{article}
+\usepackage[left=25mm,right=55mm,top=30mm,bottom=50mm]{geometry}
+\usepackage{lipsum}
+\usepackage{amsmath}
+\usepackage{kacho}
+\providecommand\KachoRegionsCmd{}
+\KachoRegionsCmd
+\providecommand\KachoSprayCmd{}
+\title{The Basket and the Tile}
+\author{An Essayist}
+\date{}
+\begin{document}
+\maketitle
+\section{Left to the margin}
+Plum blossoms open before the snow has gone. \lipsum[1]
+\begin{figure}[!htbp]
+  \centering
+  \KachoSprayCmd
+  \caption{The basket and the tile, left to the margin.}
+\end{figure}
+\lipsum[2-3]
+\section{A note on proportion}
+The golden ratio $\varphi = \tfrac{1+\sqrt5}{2}$ appears in many
+compositions.\footnote{But not in all of them.} \lipsum[4-6]
+\end{document}

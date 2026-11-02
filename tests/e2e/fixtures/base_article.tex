@@ -1,0 +1,21 @@
+% kacho E2E fixture: plain 3-page article (default geometry).
+% Hooks (defined by the harness before \input):
+%   \KachoNoPackage   -> do not load kacho at all (reference rendering)
+%   \KachoSetupArgs   -> passed to \kachosetup{...} after loading kacho
+\documentclass[11pt]{article}
+\usepackage{geometry}
+\usepackage{lipsum}
+\ifdefined\KachoNoPackage\else
+  \usepackage{kacho}
+  \ifdefined\KachoSetupArgs
+    \expandafter\kachosetup\expandafter{\KachoSetupArgs}
+  \fi
+\fi
+\begin{document}
+\section{Plum Blossoms in Snow}
+\lipsum[1-4]
+\section{The Bamboo Grove}
+\lipsum[5-9]
+\section{Autumn Maples}
+\lipsum[10-14]
+\end{document}

@@ -1,0 +1,21 @@
+% kacho E2E tier-4 fixture (Feature 32): a report whose contents page has a
+% full border frame (like the florilegium contents-page reference), followed
+% by ordinary body pages. Hook: \KachoFrameCmd (from api_config.py), issued
+% at the top of the contents page.
+\documentclass[11pt,a4paper]{report}
+\usepackage[margin=40mm]{geometry}
+\usepackage{lipsum}
+\usepackage{kacho}
+\providecommand\KachoFrameCmd{}
+\begin{document}
+\KachoFrameCmd
+\tableofcontents
+\chapter{Spring}
+\lipsum[1-3]
+\section{Plum}
+\lipsum[4-5]
+\chapter{Summer}
+\lipsum[6-8]
+\section{Iris}
+\lipsum[9]
+\end{document}
