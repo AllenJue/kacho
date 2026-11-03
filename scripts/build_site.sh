@@ -60,7 +60,7 @@ render_doc "kacho-minimal"  "minimal"
 if [ -f "$BUILD/kacho-animated-frames.pdf" ]; then
   echo "[site] rendering 24 animation frames -> $ASSETS/frame-*.png ..."
   rm -f "$ASSETS/frame-"*.png
-  pdftoppm -png -r 150 "$BUILD/kacho-animated-frames.pdf" "$ASSETS/anim_raw"
+  pdftoppm -f 1 -l 24 -png -r 150 "$BUILD/kacho-animated-frames.pdf" "$ASSETS/anim_raw"
   idx=1
   for f in $(ls "$ASSETS/anim_raw-"*.png 2>/dev/null | sort -V); do
     printf -v pad "%02d" "$idx"
@@ -70,12 +70,12 @@ if [ -f "$BUILD/kacho-animated-frames.pdf" ]; then
 
   echo "[site] synthesizing looping animated GIF -> $ASSETS/kacho-animated.gif ..."
   rm -f "$ASSETS/gif_ppm-"*.ppm
-  pdftoppm -r 96 "$BUILD/kacho-animated-frames.pdf" "$ASSETS/gif_ppm"
+  pdftoppm -f 1 -l 24 -r 96 "$BUILD/kacho-animated-frames.pdf" "$ASSETS/gif_ppm"
   python3 - "$ASSETS" <<'PYEOF'
 import glob, os, struct, sys
 
 assets = sys.argv[1]
-ppm_paths = sorted(glob.glob(os.path.join(assets, "gif_ppm-*.ppm")))
+ppm_paths = sorted(glob.glob(os.path.join(assets, "gif_ppm-*.ppm")))[:24]
 out_gif = os.path.join(assets, "kacho-animated.gif")
 
 def read_ppm(path):
@@ -185,7 +185,7 @@ cat > "$SITE/index.html" <<'HTMLEOF'
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>kacho</title>
-  <meta name="description" content="Procedural Japanese kachō-e watercolour margins for LuaLaTeX." />
+  <meta name="description" content="Japanese flower-and-bird watercolour page borders for LuaLaTeX." />
   <style>
     :root {
       --bg: #f6f1e6;
@@ -203,128 +203,121 @@ cat > "$SITE/index.html" <<'HTMLEOF'
       background: var(--bg);
       color: var(--ink);
       font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-      line-height: 1.45;
+      line-height: 1.55;
       -webkit-font-smoothing: antialiased;
     }
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
     .container {
-      max-width: 1060px;
+      max-width: 720px;
       margin: 0 auto;
-      padding: 1.25rem 1.5rem 1.25rem;
+      padding: 2rem 1.25rem 2.5rem;
     }
 
     header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-bottom: 1.1rem;
+      margin-bottom: 1.75rem;
       border-bottom: 1px solid var(--border);
-      padding-bottom: 0.65rem;
-    }
-    .header-left {
-      display: flex;
-      align-items: baseline;
-      gap: 0.9rem;
-      flex-wrap: wrap;
+      padding-bottom: 1.1rem;
     }
     h1 {
-      font-size: 2rem;
+      font-size: 2.3rem;
       font-weight: 600;
-      margin: 0;
-      letter-spacing: 0.01em;
+      margin: 0 0 0.45rem;
     }
-    .tagline {
-      font-size: 1rem;
+    .intro {
+      font-size: 1.02rem;
       color: var(--muted);
       margin: 0;
     }
-    h2 {
-      font-size: 1.05rem;
-      font-weight: 600;
-      margin: 0 0 0.5rem;
-    }
 
-    /* Single-screen 2-column layout */
-    .main-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-      gap: 1.5rem;
-      align-items: start;
+    section {
+      margin-bottom: 2rem;
+    }
+    h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 0 0 0.6rem;
     }
 
     pre {
       margin: 0 0 0.55rem;
-      padding: 0.8rem 1rem;
+      padding: 0.9rem 1.1rem;
       background: var(--code-bg);
       color: var(--code-fg);
       border-radius: 6px;
       font-family: "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
-      font-size: 0.76rem;
-      line-height: 1.45;
+      font-size: 0.8rem;
+      line-height: 1.5;
       overflow-x: auto;
     }
     .usage-note {
-      font-size: 0.86rem;
+      font-size: 0.9rem;
       color: var(--muted);
-      margin: 0 0 0.9rem;
+      margin: 0;
     }
     .usage-note code {
       font-family: "JetBrains Mono", Menlo, Consolas, monospace;
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       background: #ebe3d2;
-      padding: 0.1rem 0.3rem;
+      padding: 0.1rem 0.35rem;
       border-radius: 3px;
       color: var(--ink);
     }
 
-    /* Compact horizontal animation card */
-    .anim-card {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
+    /* Sample Pages (vertical stack, click-only) */
+    .sample-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .sample-thumb {
       background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 0.65rem 0.85rem;
+      border: 2px solid var(--border);
+      border-radius: 4px;
+      padding: 0.25rem;
+      cursor: pointer;
+      opacity: 0.7;
+      user-select: none;
     }
-    .anim-card img {
+    .sample-thumb.active {
+      border-color: var(--accent);
+      opacity: 1;
+    }
+    .sample-thumb img {
       display: block;
-      width: 125px;
-      height: auto;
-      border-radius: 3px;
-      flex-shrink: 0;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      aspect-ratio: 210 / 297;
+      object-fit: cover;
+      border-radius: 2px;
+      pointer-events: none;
     }
-    .anim-text strong {
+    .sample-thumb span {
       display: block;
-      font-size: 0.92rem;
-      margin-bottom: 0.25rem;
-    }
-    .anim-text p {
-      font-size: 0.82rem;
+      font-size: 0.7rem;
       color: var(--muted);
-      margin: 0;
+      text-align: center;
+      margin-top: 0.2rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    /* Right column: Click-only Sample Page Viewer */
     .preview-pane {
-      min-width: 0;
       width: 100%;
       background: #e9e0ce;
       border: 1px solid var(--border);
       border-radius: 6px;
-      padding: 0.75rem;
+      padding: 1rem;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
     .preview-frame {
       position: relative;
-      height: 340px;
+      width: 100%;
+      max-width: 380px;
       aspect-ratio: 1241 / 1754;
       background: #fff;
       border-radius: 2px;
@@ -346,14 +339,12 @@ cat > "$SITE/index.html" <<'HTMLEOF'
     }
     .preview-meta {
       width: 100%;
-      min-width: 0;
-      margin-top: 0.55rem;
+      margin-top: 0.65rem;
       text-align: center;
     }
     .preview-title {
-      font-size: 0.86rem;
+      font-size: 0.9rem;
       font-weight: 600;
-      line-height: 1.3;
       margin-bottom: 0.25rem;
       white-space: nowrap;
       overflow: hidden;
@@ -363,60 +354,44 @@ cat > "$SITE/index.html" <<'HTMLEOF'
       display: block;
       width: 100%;
       font-family: "JetBrains Mono", Menlo, Consolas, monospace;
-      font-size: 0.7rem;
+      font-size: 0.74rem;
       background: var(--code-bg);
       color: var(--code-fg);
-      padding: 0.25rem 0.5rem;
+      padding: 0.3rem 0.55rem;
       border-radius: 4px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    /* Compact single row of 6 click-only thumbnails */
-    .sample-grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 0.45rem;
-      margin-top: 0.6rem;
-    }
-    .sample-thumb {
+    /* Vertical Animation Section */
+    .anim-card {
       background: var(--card);
-      border: 2px solid var(--border);
-      border-radius: 4px;
-      padding: 0.2rem;
-      cursor: pointer;
-      opacity: 0.7;
-      user-select: none;
-    }
-    .sample-thumb.active {
-      border-color: var(--accent);
-      opacity: 1;
-    }
-    .sample-thumb img {
-      display: block;
-      width: 100%;
-      aspect-ratio: 210 / 297;
-      object-fit: cover;
-      border-radius: 2px;
-      pointer-events: none;
-    }
-    .sample-thumb span {
-      display: block;
-      font-size: 0.66rem;
-      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
       text-align: center;
-      margin-top: 0.15rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    }
+    .anim-card img {
+      display: block;
+      width: 240px;
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto 0.5rem;
+      border-radius: 3px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+    }
+    .anim-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin: 0;
     }
 
     footer {
-      margin-top: 1.1rem;
-      padding-top: 0.65rem;
+      margin-top: 2rem;
+      padding-top: 1rem;
       border-top: 1px solid var(--border);
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       color: var(--muted);
       display: flex;
       justify-content: space-between;
@@ -424,9 +399,8 @@ cat > "$SITE/index.html" <<'HTMLEOF'
       gap: 0.5rem;
     }
 
-    @media (max-width: 820px) {
-      .main-grid { grid-template-columns: 1fr; }
-      .sample-grid { grid-template-columns: repeat(6, 1fr); }
+    @media (max-width: 600px) {
+      .sample-grid { grid-template-columns: repeat(3, 1fr); }
     }
   </style>
 </head>
@@ -434,58 +408,55 @@ cat > "$SITE/index.html" <<'HTMLEOF'
 
 <div class="container">
   <header>
-    <div class="header-left">
-      <h1>kacho</h1>
-      <p class="tagline">Procedural Japanese <em>kachō-e</em> watercolour margins for LuaLaTeX.</p>
-    </div>
-    <div><a href="https://github.com/AllenJue/kacho">GitHub — AllenJue/kacho</a></div>
+    <h1>kacho</h1>
+    <p class="intro">
+      <em>Kachō-e</em> (花鳥画, &ldquo;pictures of flowers and birds&rdquo;) is traditional Japanese art depicting seasonal blossoms, bamboo, pine, and songbirds in watercolor and ink wash.
+      <strong>kacho</strong> is a LuaLaTeX package that automatically paints these flower-and-bird borders in the margins of your PDF documents, generated directly from code with zero external image files.
+    </p>
   </header>
 
-  <div class="main-grid">
-    <div>
-      <h2>How to Include &amp; Use</h2>
+  <section>
+    <h2>How to Include &amp; Use</h2>
 <pre>\documentclass[11pt,a4paper,twoside]{article}
 \usepackage[
   seed=7,
-  palette=hanga,   % sumi (monochrome ink) or hanga (polychrome)
-  theme=haru,      % haru | natsu | aki | fuyu | shochikubai
-  ground=washi     % none | washi | kinu | torinoko | koson
+  palette=hanga,   % sumi (black ink wash) or hanga (color woodblock)
+  theme=haru,      % haru (spring) | natsu | aki | fuyu | shochikubai
+  ground=washi     % optional warm paper background
 ]{kacho}
 
 \begin{document}
 \section*{Notes from the Plum Orchard}
-Every page margin is painted automatically at shipout time...
+Every page margin is painted automatically around your text...
 
-% Override a single page or place an inline vignette:
+% Customize a single page or add an inline illustration:
 \kachoThisPage{theme=aki, motif={maple,mejiro}, layout=overhang}
 \kachospray[width=0.75\linewidth, height=42mm, motif=ume]
 \end{document}</pre>
-      <p class="usage-note">
-        Compile with <code>lualatex your-doc.tex</code>. Pause or resume anytime with <code>\kachoOff</code> and <code>\kachoOn</code>.
-      </p>
+    <p class="usage-note">
+      Compile with <code>lualatex your-doc.tex</code>. Turn borders off or back on anytime with <code>\kachoOff</code> and <code>\kachoOn</code>.
+    </p>
+  </section>
 
-      <div class="anim-card">
-        <img src="assets/kacho-animated.gif" alt="24-frame procedural kacho growth animation" />
-        <div class="anim-text">
-          <strong>Procedural Growth Animation</strong>
-          <p>Branches, buds, blossoms, and washes grow continuously across <code>t = 0 &rarr; 1</code> directly inside LuaLaTeX with zero external images.</p>
-        </div>
+  <section>
+    <h2>Sample Pages <span style="font-weight:400; font-size:0.86rem; color:var(--muted);">(click a thumbnail to view)</span></h2>
+    <div class="sample-grid" id="sampleGrid"></div>
+    <div class="preview-pane">
+      <div class="preview-frame" id="previewFrame"></div>
+      <div class="preview-meta">
+        <div class="preview-title" id="mainTitle">Spring Sakura &amp; Bamboo</div>
+        <code class="preview-code" id="mainCode">\kachoThisPage{theme=haru, palette=hanga, layout=overhang, motif={sakura,uguisu}, seed=11}</code>
       </div>
     </div>
+  </section>
 
-    <div>
-      <h2>Sample Pages <span style="font-weight:400; font-size:0.84rem; color:var(--muted);">(click thumbnail to switch)</span></h2>
-      <div class="preview-pane">
-        <div class="preview-frame" id="previewFrame"></div>
-        <div class="preview-meta">
-          <div class="preview-title" id="mainTitle">Spring Sakura &amp; Interleaved Bamboo (Overhang)</div>
-          <code class="preview-code" id="mainCode">\kachoThisPage{theme=haru, palette=hanga, layout=overhang, motif={sakura,uguisu}, seed=11}</code>
-        </div>
-      </div>
-
-      <div class="sample-grid" id="sampleGrid"></div>
+  <section>
+    <h2>Growth Animation</h2>
+    <div class="anim-card">
+      <img src="assets/kacho-animated.gif" alt="24-frame kacho growth animation" />
+      <p>A plum branch growing and blossoming across 24 frames, drawn directly by LuaLaTeX.</p>
     </div>
-  </div>
+  </section>
 
   <footer>
     <div><a href="https://github.com/AllenJue/kacho">GitHub — AllenJue/kacho</a></div>
@@ -498,37 +469,37 @@ const SAMPLES = [
   {
     src: "assets/showcase-2.png",
     label: "Sakura",
-    title: "Spring Sakura & Interleaved Bamboo (Overhang)",
+    title: "Spring Sakura & Bamboo",
     code: "\\kachoThisPage{theme=haru, palette=hanga, layout=overhang, motif={sakura,uguisu}, seed=11}"
   },
   {
     src: "assets/showcase-1.png",
-    label: "Kakejiku",
-    title: "Kakejiku Hanging-Scroll Title Page",
+    label: "Scroll Title",
+    title: "Hanging-Scroll Title Page",
     code: "\\kachoTitlePage[layout=kakejiku, palette=hanga, theme=haru, seed=7]{...}"
   },
   {
     src: "assets/showcase-4.png",
     label: "Maple",
-    title: "Autumn Momiji Maple, Bamboo & Mejiro White-Eyes",
+    title: "Autumn Maple & White-Eye Songbirds",
     code: "\\kachoThisPage{theme=aki, palette=hanga, layout=overhang, motif={maple,mejiro}, seed=21}"
   },
   {
     src: "assets/showcase-5.png",
     label: "Sumi Pine",
-    title: "Three Friends of Winter (Shōchikubai) in Sumi Ink",
+    title: "Winter Pine & Plum in Black Sumi Ink",
     code: "\\kachoThisPage{theme=shochikubai, palette=sumi, layout=rising, motif={pine,ume,sparrow}, seed=29}"
   },
   {
     src: "assets/gallery-10.png",
     label: "Mt. Fuji",
-    title: "Footer Ground with Scholar Rock & Distant Mount Fuji",
+    title: "Scholar Rock & Distant Mount Fuji",
     code: "\\kachoThisPage{theme=natsu, palette=hanga, layout=footer-ground, motif=fuji, seed=19}"
   },
   {
     src: "assets/showcase-6.png",
-    label: "Border",
-    title: "Four-Sided Interleaved Border Frame",
+    label: "Full Frame",
+    title: "Four-Sided Floral Border Frame",
     code: "\\kachoThisPage{theme=haru, palette=hanga, layout=border-frame, seed=33}"
   }
 ];

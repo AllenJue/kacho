@@ -25,7 +25,6 @@
 \documentclass{article}
 \usepackage[paperwidth=270bp,paperheight=345bp,top=16bp,bottom=16bp,left=25bp,right=25bp]{geometry}
 \usepackage{pgfcore}
-\usepackage{animate}
 \pagestyle{empty}
 \setlength{\parindent}{0pt}
 
@@ -38,6 +37,12 @@
   })
 }
 
+\ifdefined\kachoAnimFrames\def\framespages{1}\fi
+\directlua{anim.check_frames_env()}
+\unless\ifdefined\framespages
+  \usepackage{animate}
+\fi
+
 \newcommand\kachoAnimBox[2]{%
   \hbox to 220bp{\vrule width 0pt height 280bp depth 0pt\directlua{anim.put(#1, #2)}\hss}%
 }
@@ -46,9 +51,6 @@
   \noindent\kachoAnimBox{#2}{{ clip_box = true, frames_mode = true }}%
 }
 \providecommand\posterframe{last}
-
-\ifdefined\kachoAnimFrames\def\framespages{1}\fi
-\directlua{anim.check_frames_env()}
 
 \begin{document}
 \ifdefined\framespages

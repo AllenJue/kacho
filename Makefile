@@ -87,10 +87,13 @@ view-animated: animated
 
 animated-frames: $(PKG) $(ANIM_EXAMPLES) | check-tools
 	@mkdir -p $(BUILD) $(BUILD)/png
-	@$(LUALATEX) $(LATEXFLAGS) -output-directory=$(BUILD) -jobname=kacho-animated-frames '\def\kachoAnimFrames{1}\input{examples/animated/kacho-animated.tex}' >$(BUILD)/kacho-animated-frames.stdout 2>&1 \
-	  || { tail -n 40 $(BUILD)/kacho-animated-frames.log >&2; exit 1; }
+	@for i in 1 2; do \
+	  $(LUALATEX) $(LATEXFLAGS) -output-directory=$(BUILD) -jobname=kacho-animated-frames '\def\kachoAnimFrames{1}\input{examples/animated/kacho-animated.tex}' >$(BUILD)/kacho-animated-frames.stdout 2>&1 \
+	    || { tail -n 40 $(BUILD)/kacho-animated-frames.log >&2; exit 1; }; \
+	  grep -qE 'Rerun to get|Label\(s\) may have changed|Please rerun|Temporary page' $(BUILD)/kacho-animated-frames.log || break; \
+	done
 	@rm -f $(BUILD)/png/kacho-animated-frame-*.png
-	@pdftoppm -r 150 -png $(BUILD)/kacho-animated-frames.pdf $(BUILD)/png/kacho-animated-frame
+	@pdftoppm -f 1 -l 24 -r 150 -png $(BUILD)/kacho-animated-frames.pdf $(BUILD)/png/kacho-animated-frame
 	@echo "rendered frames in $(BUILD)/png/kacho-animated-frame-*.png"
 
 render: all

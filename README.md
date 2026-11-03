@@ -1,6 +1,6 @@
 # kacho
 
-Procedural Japanese *kachō-e* (flower-and-bird), *kanga-e*, and *ukiyo-e* watercolour and ink-wash page margins for LuaLaTeX.
+*Kachō-e* (花鳥画, "pictures of flowers and birds") is traditional Japanese art depicting seasonal blossoms, bamboo, pine, and songbirds in watercolor and ink wash. **kacho** is a LuaLaTeX package that automatically paints these flower-and-bird borders in the margins of your PDF documents, generated directly from code with zero external image files.
 
 **[Showcase Website (`allenjue.github.io/kacho`)](https://allenjue.github.io/kacho/)**
 
