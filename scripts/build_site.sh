@@ -290,14 +290,16 @@ cat > "$SITE/index.html" <<'HTMLEOF'
       margin-top: 0.55rem;
     }
 
-    /* Sample Pages Showcase (hover/click to highlight in-place, fixed height so nothing jumps) */
+    /* Sample Pages Showcase (hover/click to highlight in-place, locked dimensions so nothing ever shifts or jitters) */
     .showcase-layout {
       display: grid;
-      grid-template-columns: 1fr 290px;
+      grid-template-columns: minmax(0, 1fr) 290px;
       gap: 1.75rem;
       align-items: start;
     }
     .preview-pane {
+      min-width: 0;
+      width: 100%;
       background: #e9e0ce;
       border: 1px solid var(--border);
       border-radius: 8px;
@@ -305,45 +307,62 @@ cat > "$SITE/index.html" <<'HTMLEOF'
       display: flex;
       flex-direction: column;
       align-items: center;
+      overflow: hidden;
     }
     .preview-frame {
+      position: relative;
       width: 100%;
-      height: 680px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .preview-frame img {
-      max-width: 100%;
-      max-height: 100%;
-      width: auto;
-      height: auto;
-      object-fit: contain;
+      max-width: 480px;
+      aspect-ratio: 1241 / 1754;
       background: #fff;
       border-radius: 2px;
       box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+    }
+    .preview-frame img.preview-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #fff;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.12s ease;
+      will-change: opacity;
+    }
+    .preview-frame img.preview-layer.active {
+      opacity: 1;
     }
     .preview-meta {
       width: 100%;
+      min-width: 0;
       margin-top: 1rem;
       text-align: center;
     }
     .preview-title {
       font-size: 0.98rem;
       font-weight: 600;
-      margin-bottom: 0.3rem;
+      line-height: 1.4;
+      height: 1.4em;
+      margin-bottom: 0.35rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .preview-code {
-      display: inline-block;
+      display: block;
+      width: 100%;
       font-family: "JetBrains Mono", Menlo, Consolas, monospace;
-      font-size: 0.76rem;
+      font-size: 0.75rem;
+      line-height: 1.5;
       background: var(--code-bg);
       color: var(--code-fg);
-      padding: 0.3rem 0.65rem;
+      padding: 0.35rem 0.65rem;
       border-radius: 4px;
-      max-width: 100%;
-      overflow-x: auto;
       white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .sample-grid {
@@ -398,7 +417,6 @@ cat > "$SITE/index.html" <<'HTMLEOF'
     @media (max-width: 780px) {
       .intro-grid { grid-template-columns: 1fr; }
       .showcase-layout { grid-template-columns: 1fr; }
-      .preview-frame { height: 480px; }
       .sample-grid { grid-template-columns: repeat(4, 1fr); }
     }
   </style>
@@ -439,7 +457,7 @@ Every page margin is painted automatically at shipout time...
 
     <div class="anim-card">
       <img src="assets/kacho-animated.gif" alt="24-frame procedural kacho growth animation" />
-      <div class="anim-caption">Continuous procedural growth ($t \in [0, 1]$) rendered directly by LuaLaTeX.</div>
+      <div class="anim-caption">Continuous procedural growth (<code>t = 0 &rarr; 1</code>) rendered directly by LuaLaTeX.</div>
     </div>
   </div>
 
@@ -447,9 +465,7 @@ Every page margin is painted automatically at shipout time...
     <h2>Sample Pages</h2>
     <div class="showcase-layout">
       <div class="preview-pane">
-        <div class="preview-frame">
-          <img id="mainPreview" src="assets/showcase-2.png" alt="Sample page preview" />
-        </div>
+        <div class="preview-frame" id="previewFrame"></div>
         <div class="preview-meta">
           <div class="preview-title" id="mainTitle">Spring Sakura &amp; Interleaved Bamboo (Overhang)</div>
           <code class="preview-code" id="mainCode">\kachoThisPage{theme=haru, palette=hanga, layout=overhang, motif={sakura,uguisu}, seed=11}</code>
@@ -543,22 +559,33 @@ const SAMPLES = [
 ];
 
 const gridEl = document.getElementById("sampleGrid");
-const mainPreviewEl = document.getElementById("mainPreview");
+const previewFrameEl = document.getElementById("previewFrame");
 const mainTitleEl = document.getElementById("mainTitle");
 const mainCodeEl = document.getElementById("mainCode");
+let activeIdx = 0;
 
 function selectSample(idx) {
+  if (idx === activeIdx) return;
+  activeIdx = idx;
   const s = SAMPLES[idx];
-  mainPreviewEl.src = s.src;
-  mainPreviewEl.alt = s.title;
   mainTitleEl.textContent = s.title;
   mainCodeEl.textContent = s.code;
+  Array.from(previewFrameEl.children).forEach((el, i) => {
+    el.classList.toggle("active", i === idx);
+  });
   Array.from(gridEl.children).forEach((el, i) => {
     el.classList.toggle("active", i === idx);
   });
 }
 
 SAMPLES.forEach((s, idx) => {
+  const layer = document.createElement("img");
+  layer.className = "preview-layer" + (idx === 0 ? " active" : "");
+  layer.src = s.src;
+  layer.alt = s.title;
+  layer.decoding = "async";
+  previewFrameEl.appendChild(layer);
+
   const item = document.createElement("div");
   item.className = "sample-thumb" + (idx === 0 ? " active" : "");
   item.innerHTML = `<img src="${s.src}" alt="${s.label}" /><span>${s.label}</span>`;
